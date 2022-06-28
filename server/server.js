@@ -16,7 +16,9 @@ app.use(express.json());
 // parser for url encoded data
 app.use(express.urlencoded({ extended: true }));
 
+// # ROUTES
 app.use('/api/goals', require('./routes/goalRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
 
 // override default error handler
 app.use(errorHandler);
