@@ -1,22 +1,29 @@
 ## Setting Up Server
 
-- Create package.json file in project root
-  ```bash
-  npm init
-  ```
-- Install necessary dependencies to start
-  ```bash
-  npm i express mongoose dotenv
-  ```
-- Install nodemon as a dev dependency
-  ```bash
-  npm i -D nodemon
-  ```
-- Go to package.json and create add start scripts
-  ```json
-  "start": "node backend/server.js",
-  "server": "nodemon backend/server.js"
-  ```
+Create package.json file in project root
+
+```bash
+npm init
+```
+
+Install necessary dependencies to start
+
+```bash
+npm i express mongoose dotenv
+```
+
+Install nodemon as a dev dependency
+
+```bash
+npm i -D nodemon
+```
+
+Go to package.json and create add start scripts
+
+```json
+"start": "node backend/server.js",
+"server": "nodemon backend/server.js"
+```
 
 #### Things to Remember
 
