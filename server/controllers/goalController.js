@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const Goal = require('../models/goalModel');
+const User = require('../models/userModel');
 
 /**
  * @desc Get all goals
@@ -7,7 +8,10 @@ const Goal = require('../models/goalModel');
  * @access private
  */
 const getGoals = asyncHandler(async (req, res) => {
-  const goals = await Goal.find();
+  // Get all goals by user
+  const goals = await Goal.find({ user: req.user.id });
+
+  // Send response
   res.status(200).json({ goals });
 });
 
@@ -17,12 +21,16 @@ const getGoals = asyncHandler(async (req, res) => {
  * @access private
  */
 const setGoal = asyncHandler(async (req, res) => {
+  // Check if goal is provided
   if (!req.body.text) {
     res.status(400);
     throw new Error('No text provided');
   }
 
-  const goal = await Goal.create({ text: req.body.text });
+  // Create goal for specific user
+  const goal = await Goal.create({ text: req.body.text, user: req.user.id });
+
+  // Send response
   res.status(201).json({ goal });
 });
 
@@ -32,10 +40,26 @@ const setGoal = asyncHandler(async (req, res) => {
  * @access private
  */
 const updateGoal = asyncHandler(async (req, res) => {
+  // Find goal by id
   const goal = await Goal.findOne({ _id: req.params.id });
   if (!goal) {
     res.status(404);
     throw new Error('Goal not found');
+  }
+
+  // Get user from req.user
+  const user = await User.findById(req.user.id);
+
+  // Check if user not found/authenticated
+  if (!user) {
+    res.status(401);
+    throw new Error('User not found');
+  }
+
+  // Check if user is owner of goal
+  if (goal.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error('Not authorized to update goal');
   }
 
   const updatedGoal = await Goal.findOneAndUpdate(
@@ -53,10 +77,26 @@ const updateGoal = asyncHandler(async (req, res) => {
  * @access private
  */
 const deleteGoal = asyncHandler(async (req, res) => {
+  // Find goal by id
   const goal = await Goal.findOne({ _id: req.params.id });
   if (!goal) {
     res.status(404);
     throw new Error('Goal not found');
+  }
+
+  // Get user from req.user
+  const user = await User.findById(req.user.id);
+
+  // Check if user not found/authenticated
+  if (!user) {
+    res.status(401);
+    throw new Error('User not found');
+  }
+
+  // Check if user is owner of goal
+  if (goal.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error('Not authorized to update goal');
   }
 
   await goal.remove();
