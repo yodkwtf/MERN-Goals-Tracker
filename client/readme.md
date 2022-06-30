@@ -52,3 +52,33 @@ function App() {
 
 export default App;
 ```
+
+## Creating Pages and Components
+
+- Create all the basic frontend for all the pages
+- Add whatever form, states and onChange functions are required
+- Create the required static components like _Nav_, _Footer_, etc.
+
+## NOTE - Installing Concurrently
+
+Before we start working with Redux and setting up reducers, we need both of our frontend and backend servers running simultaneously.
+
+Now we can either run both of them separately by their respective script commands or optionally, use a package called **concurrently** to run multiple scripts at the same.
+
+Install _concurrently_ as a dev dependency in the root
+
+```bash
+npm i -D concurrently
+```
+
+Add run command in root's package.json to run both the servers at the same time
+
+```json
+"dev": "concurrently \"npm run server\" \"npm run client\""
+```
+
+Start both the servers
+
+```bash
+npm run dev
+```
