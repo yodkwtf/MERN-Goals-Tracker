@@ -18,11 +18,17 @@ Install nodemon as a dev dependency
 npm i -D nodemon
 ```
 
-Go to package.json and create add start scripts
+Create start scripts in _package.json_ so we don't have to cd into the server
 
 ```json
 "start": "node backend/server.js",
 "server": "nodemon backend/server.js"
+```
+
+Start the development server
+
+```bash
+npm run server
 ```
 
 #### Things to Remember
@@ -261,12 +267,12 @@ const generateToken = (id) => {
 
 **Update Goal**
 
-- Find user using _req.user_ and check if it exists
+- Use _req.user_ to check if user exists
 - Check user's id with goal's user reference to check if user owns that goal
 - If yes, update goal else throw _unauthorized_ error
 
 **Delete Goal**
 
-- Find user using _req.user_ and check if it exists
+- Use _req.user_ to check if user exists
 - Check user's id with goal's user reference to check if user owns that goal
 - If yes, delete goal else throw _unauthorized_ error

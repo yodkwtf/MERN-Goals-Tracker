@@ -91,7 +91,7 @@ const getMe = asyncHandler(async (req, res) => {
   // get user data
   const { _id, name, email } = req.user;
 
-  // send response
+  // send response (we can also directly send `req.user` as a response)
   res.status(200).json({
     success: true,
     id: _id,
