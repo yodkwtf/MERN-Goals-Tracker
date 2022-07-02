@@ -12,7 +12,7 @@ const getGoals = asyncHandler(async (req, res) => {
   const goals = await Goal.find({ user: req.user.id });
 
   // Send response
-  res.status(200).json({ goals });
+  res.status(200).json(goals);
 });
 
 /**
@@ -31,7 +31,7 @@ const setGoal = asyncHandler(async (req, res) => {
   const goal = await Goal.create({ text: req.body.text, user: req.user.id });
 
   // Send response
-  res.status(201).json({ goal });
+  res.status(201).json(goal);
 });
 
 /**
@@ -65,7 +65,7 @@ const updateGoal = asyncHandler(async (req, res) => {
     { new: true } // create if it doesn't exist
   );
 
-  res.status(200).json({ updatedGoal });
+  res.status(200).json(updatedGoal);
 });
 
 /**

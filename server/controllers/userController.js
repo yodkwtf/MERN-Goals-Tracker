@@ -65,6 +65,11 @@ const loginUser = asyncHandler(async (req, res) => {
   // find user by email
   const user = await User.findOne({ email });
 
+  if (!user) {
+    res.status(400);
+    throw new Error('User does not exist');
+  }
+
   // compare password with hashed password
   if (user && (await bcrypt.compare(password, user.password))) {
     res.status(200).json({
