@@ -124,9 +124,21 @@ Now all of our api requests will be prefixed with _http://localhost:5000_ and he
 #### Register User
 
 1. Create async thunk function to register user
+
    - Send a post request to _API_URL_ with user data
    - Save user to local storage to save the JWT
    - Show required errors, if any
+
 2. Add it to the extra reducers using builder
+
    - Add 3 cases
    - Pending (loading), fullfilled (set user), and rejected (show error)
+
+3. Hook it up the register form
+
+   - Get register function from authSlice using _useSelector_
+   - Call it with user data from the form when submitted using _dispatch_
+   - Check for change in authState and set up a useEffect
+     - Show error if there's one
+     - If register is succes or user's logged in push to dashboard
+     - Clear success, loading, error states after at the end

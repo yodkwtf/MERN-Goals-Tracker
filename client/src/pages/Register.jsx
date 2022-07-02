@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { register, reset } from '../features/auth/authSlice';
 import { FaUser } from 'react-icons/fa';
+import Spinner from '../components/Spinner';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -9,16 +14,52 @@ const Register = () => {
     password2: '',
   });
 
-  const { name, email, password, password2 } = formData;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  // get the state values for auth
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (store) => store.auth
+  );
+
+  // incase any state changes
+  useEffect(() => {
+    // if there's an error
+    if (isError) {
+      toast.error(message);
+    }
+    // if user is logged in or registers, redirect to dashboard
+    if (isSuccess || user) {
+      navigate('/');
+    }
+    // reset the state's boolean values
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
+  // handle input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    if (formData.password !== formData.password2) {
+      toast.error('Passwords do not match');
+    } else {
+      const userData = {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      };
+      dispatch(register(userData));
+    }
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>
@@ -38,7 +79,7 @@ const Register = () => {
               id="name"
               name="name"
               placeholder="Enter your name"
-              value={name}
+              value={formData.name}
               onChange={handleChange}
             />
           </div>
@@ -50,7 +91,7 @@ const Register = () => {
               id="email"
               name="email"
               placeholder="Enter your email"
-              value={email}
+              value={formData.email}
               onChange={handleChange}
             />
           </div>
@@ -63,7 +104,7 @@ const Register = () => {
               name="password"
               placeholder="Create a password"
               autoComplete="off"
-              value={password}
+              value={formData.password}
               onChange={handleChange}
             />
           </div>
@@ -76,7 +117,7 @@ const Register = () => {
               name="password2"
               placeholder="Confirm password"
               autoComplete="off"
-              value={password2}
+              value={formData.password2}
               onChange={handleChange}
             />
           </div>
