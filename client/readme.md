@@ -132,7 +132,7 @@ Now all of our api requests will be prefixed with _http://localhost:5000_ and he
 2. Add it to the extra reducers using builder
 
    - Add 3 cases
-   - Pending (loading), fullfilled (set user), and rejected (show error)
+   - Pending (loading), fulfilled (set user), and rejected (show error)
 
 3. Hook it up the register form
 
@@ -140,5 +140,15 @@ Now all of our api requests will be prefixed with _http://localhost:5000_ and he
    - Call it with user data from the form when submitted using _dispatch_
    - Check for change in authState and set up a useEffect
      - Show error if there's one
-     - If register is succes or user's logged in push to dashboard
+     - If register is success or user's logged in push to dashboard
      - Clear success, loading, error states after at the end
+
+#### Logout User
+
+1. Create asyncThunk function for logout to remove the token/user form the local storage
+2. Add a case in extra reducer where we set user to null when logout function is fulfilled
+3. Conditionally render the logout button in navbar if user if truthy
+4. Setup an _onClick_ function on logout button to do the following
+   - Call logout function from authSlice
+   - Call reset to reset the state values
+   - Navigate user to _/login_ page after they logout

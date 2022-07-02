@@ -13,7 +13,7 @@ const initialState = {
   message: '',
 };
 
-// aysnc thunk for register user
+// async thunk for register user
 export const register = createAsyncThunk(
   'auth/register',
   async (user, thunkAPI) => {
@@ -32,6 +32,11 @@ export const register = createAsyncThunk(
     }
   }
 );
+
+// async thunk for logout user
+export const logout = createAsyncThunk('auth/logout', async () => {
+  await authService.logout();
+});
 
 // create slice for auth
 const authSlice = createSlice({
@@ -60,6 +65,10 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.isError = true;
       state.message = action.payload;
+      state.user = null;
+    });
+
+    builder.addCase(logout.fulfilled, (state) => {
       state.user = null;
     });
   },
