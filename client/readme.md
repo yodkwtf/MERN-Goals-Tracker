@@ -83,11 +83,7 @@ Start both the servers
 npm run dev
 ```
 
-## Redux Toolkit Setup
-
-- Setup **store** in _/src/app/store.js_
-- Create **authSlice** in _/src/features/auth/authSlice.js_
-- Connect to store by exporting reducers and actions from _authSlice.js_
+## Connecting to Backend
 
 Install **axios** to frontend for async data fetching
 
@@ -121,11 +117,19 @@ Set up a _proxy_ in the frontend's _package.json_
 
 Now all of our api requests will be prefixed with _http://localhost:5000_ and hence our backend server.
 
+## Redux Toolkit Setup
+
+- Setup **store** in _/src/app/store.js_
+- Create all the required slices in the features directory
+  > _/src/features/auth/authSlice.js_
+  > _/src/features/goals/goalSlice.js_
+- Connect to store by exporting reducers and actions from the slices
+
 #### Register User
 
 1. Create async thunk function to register user
 
-   - Send a post request to _API_URL_ with user data
+   - Send a post request to _/api/users_ with user data
    - Save user to local storage to save the JWT
    - Show required errors, if any
 
@@ -152,3 +156,22 @@ Now all of our api requests will be prefixed with _http://localhost:5000_ and he
    - Call logout function from authSlice
    - Call reset to reset the state values
    - Navigate user to _/login_ page after they logout
+
+#### Login User
+
+1. Create asyncThunk function to login user
+
+   - Send a post request to _/api/users/login_ with user data
+   - Save user to local storage to save the JWT
+   - Show required errors, if any
+
+2. Add 3 cases of the login function to extraReducer, same as register user
+
+3. Hook it up the login form
+
+   - Get login, reset function from authSlice using _useSelector_
+   - Call it with user data from the form when submitted using _dispatch_
+   - Check for change in authState and set up a useEffect
+     - Show error if there's one
+     - If register is success or user's logged in push to dashboard
+     - Clear success, loading, error states after at the end
