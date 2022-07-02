@@ -207,3 +207,16 @@ Now all of our api requests will be prefixed with _http://localhost:5000_ and he
 
    - Push goals to state.goals on fulfillment
    - Show error on rejection
+
+#### Get All Goals
+
+1. Create asyncThunk function to get all goals
+2. Make an authorized get request to _API_URL_ using useEffect
+3. Setup extraReducers and make state.goals all goals returned by req response
+4. Get the goals from the _goalSlice_ and display them
+
+#### Delete Goal
+
+1. Create asyncThunk function to delete goal that takes _goal.\_id_ as an input
+2. Make an authorized delete request to _/api/goals/the-goal-id_
+3. Setup extraReducers and filter state.goals where goal's id not same as id returned by req response
