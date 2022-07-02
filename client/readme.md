@@ -121,8 +121,12 @@ Now all of our api requests will be prefixed with _http://localhost:5000_ and he
 
 - Setup **store** in _/src/app/store.js_
 - Create all the required slices in the features directory
+
   > _/src/features/auth/authSlice.js_
+
   > _/src/features/goals/goalSlice.js_
+
+- Create initial states and respective slices
 - Connect to store by exporting reducers and actions from the slices
 
 #### Register User
@@ -156,6 +160,8 @@ Now all of our api requests will be prefixed with _http://localhost:5000_ and he
    - Call logout function from authSlice
    - Call reset to reset the state values
    - Navigate user to _/login_ page after they logout
+5. Make the dashboard protected
+   - Check if user is null and push to login page it true
 
 #### Login User
 
@@ -175,3 +181,29 @@ Now all of our api requests will be prefixed with _http://localhost:5000_ and he
      - Show error if there's one
      - If register is success or user's logged in push to dashboard
      - Clear success, loading, error states after at the end
+
+#### Create Goal
+
+1. Create asyncThunk function to create goal
+2. On clicking the add goal button, dispatch the createGoal function with _{text}_ as an input since we expect the text property on the req.body in the backend
+
+   ```js
+   console.log({ text }); // {text: 'the entered goal'}
+   ```
+
+3. Get user's token using thunkAPI and send a post request to _/api/goals_ passing the goal and headers containing the bearer token
+
+   ```js
+   const config = {
+     headers: {
+       Authorization: `Bearer ${token}`,
+     },
+   };
+   const response = await axios.post(API_URL, goal, config);
+   return response.data;
+   ```
+
+4. Add _extraReducers_ for all 3 cases of promise
+
+   - Push goals to state.goals on fulfillment
+   - Show error on rejection
