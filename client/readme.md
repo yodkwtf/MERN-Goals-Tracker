@@ -82,3 +82,51 @@ Start both the servers
 ```bash
 npm run dev
 ```
+
+## Redux Toolkit Setup
+
+- Setup **store** in _/src/app/store.js_
+- Create **authSlice** in _/src/features/auth/authSlice.js_
+- Connect to store by exporting reducers and actions from _authSlice.js_
+
+Install **axios** to frontend for async data fetching
+
+```bash
+npm i axios
+```
+
+Install **react-toastify** to frontend for displaying alerts
+
+```bash
+npm i react-toastify
+```
+
+#### Setting Up Proxy
+
+Whenever we make a request to the backend api using the routes like _/api/users_ or _/api/users/login_ from the frontend it'll automatically prefix the routes with _http://localhost:3000_ since that's the port our client is running on.
+
+But instead we want it to make a request to _http://localhost:5000_ and hence we set up a proxy.
+
+Move to the frontend directory
+
+```bash
+cd client
+```
+
+Set up a _proxy_ in the frontend's _package.json_
+
+```json
+"proxy": "http://localhost:5000"
+```
+
+Now all of our api requests will be prefixed with _http://localhost:5000_ and hence our backend server.
+
+#### Register User
+
+1. Create async thunk function to register user
+   - Send a post request to _API_URL_ with user data
+   - Save user to local storage to save the JWT
+   - Show required errors, if any
+2. Add it to the extra reducers using builder
+   - Add 3 cases
+   - Pending (loading), fullfilled (set user), and rejected (show error)
