@@ -26,7 +26,13 @@ const Register = () => {
   useEffect(() => {
     // if there's an error
     if (isError) {
-      toast.error(message);
+      toast.error(message, {
+        position: 'top-center',
+        autoClose: 2000,
+        hideProgressBar: true,
+        style: { padding: '10px' },
+        theme: 'dark',
+      });
     }
     // if user is logged in or registers, redirect to dashboard
     if (isSuccess || user) {
@@ -46,7 +52,13 @@ const Register = () => {
     e.preventDefault();
 
     if (formData.password !== formData.password2) {
-      toast.error('Passwords do not match');
+      toast.error('Passwords do not match', {
+        position: 'top-center',
+        autoClose: 2000,
+        hideProgressBar: true,
+        style: { padding: '10px' },
+        theme: 'dark',
+      });
     } else {
       const userData = {
         name: formData.name,

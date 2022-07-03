@@ -27,7 +27,13 @@ const Login = () => {
   useEffect(() => {
     // if there's an error
     if (isError) {
-      toast.error(message);
+      toast.error(message, {
+        position: 'top-center',
+        autoClose: 2000,
+        hideProgressBar: true,
+        style: { padding: '10px' },
+        theme: 'dark',
+      });
     }
     // if user is logged in or registers, redirect to dashboard
     if (isSuccess || user) {

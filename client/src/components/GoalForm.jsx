@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createGoal } from '../features/goals/goalSlice';
+import { toast } from 'react-toastify';
 
 const GoalForm = () => {
   const [text, setText] = useState('');
@@ -15,6 +16,16 @@ const GoalForm = () => {
   // handleSubmit
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (text === '') {
+      toast.error('Please enter a goal', {
+        position: 'top-center',
+        autoClose: 2000,
+        hideProgressBar: true,
+        style: { padding: '10px' },
+        theme: 'dark',
+      });
+    }
 
     dispatch(createGoal({ text }));
     setText('');

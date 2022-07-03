@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import GoalForm from '../components/GoalForm';
-import { toast } from 'react-toastify';
+import { getGoals } from '../features/goals/goalSlice';
 import Spinner from '../components/Spinner';
-import { getGoals, reset } from '../features/goals/goalSlice';
+import GoalForm from '../components/GoalForm';
 import GoalItem from '../components/GoalItem';
 
 const Dashboard = () => {
@@ -17,20 +16,11 @@ const Dashboard = () => {
   );
 
   useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
-
     if (!user) {
       navigate('/login');
     }
 
     dispatch(getGoals());
-
-    // remove goals when we exit the dashboard
-    return () => {
-      dispatch(reset());
-    };
   }, [user, navigate, isError, message, dispatch]);
 
   if (isLoading) {

@@ -220,3 +220,10 @@ Now all of our api requests will be prefixed with _http://localhost:5000_ and he
 1. Create asyncThunk function to delete goal that takes _goal.\_id_ as an input
 2. Make an authorized delete request to _/api/goals/the-goal-id_
 3. Setup extraReducers and filter state.goals where goal's id not same as id returned by req response
+
+## Finishing Touches
+
+- Look for any errors or anything going bezerk
+- Fix meta tags - title, desc, etc.
+- Make any required css updates
+- Prepare project for deployment
