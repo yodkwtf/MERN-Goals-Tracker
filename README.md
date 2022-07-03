@@ -1,4 +1,4 @@
-# goals-tracker-mern
+## Goals Tracker | MERN Stack Application
 
 A MERN stack application that allows users to track their goals.
 
