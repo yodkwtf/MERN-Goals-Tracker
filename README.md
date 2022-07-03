@@ -62,7 +62,17 @@ if (process.env.NODE_ENV === 'production') {
    git commit -m 'initial deploy'
    ```
 
-7. Add git remote for heroku
+7. Check if git remote for heroku is added
+
+   ```bash
+   git remote -v
+   ```
+
+   If the remote is not displaying, add it manually
+
+   ```bash
+   heroku git:remote -a goalstracker-mern-dk
+   ```
 
 8. Push it to heroku
 
