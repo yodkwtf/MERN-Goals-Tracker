@@ -2,7 +2,7 @@
 
 A MERN stack application that allows users to track their goals.
 
-## Deployment
+## Prepare for Deployment
 
 Production server doesn't look for separate frontend and backend folders, that's just for development. Hence, we'll need to create the build of the react frontend and point our backend server to it's _index.html_ file.
 
@@ -27,3 +27,50 @@ if (process.env.NODE_ENV === 'production') {
   );
 }
 ```
+
+## Heroku Setup
+
+1. Create an account on Heroku
+2. Install the Heroku CLI or check if it's present
+   ```bash
+   heroku --version #should print the version
+   ```
+3. Login to Heroku CLI
+   ```bash
+   heroku login
+   ```
+4. Create a new heroku app with a custom unique name
+
+   ```bash
+   heroku create goals-tracker-dk
+   ```
+
+   Now our Heroku app will be created with our custom url
+
+   > Since _.env_ file doesn't get pushed, we will manually need to add all the env variables to the app using Heroku's GUI on the website
+
+5. Add a Heroku post build script to _package.json_ so heroku can build our react app too on every build
+
+   ```json
+   "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+   ```
+
+6. Add and commit the files
+
+   ```bash
+   git add .
+   git commit -m 'initial deploy'
+   ```
+
+7. Add git remote for heroku
+
+8. Push it to heroku
+
+   ```bash
+   git push heroku main/master
+   ```
+
+9. Once deployment is done, see it live!
+   ```bash
+   heroku open
+   ```
