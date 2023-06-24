@@ -4,7 +4,7 @@ A MERN stack application that allows users to track their goals.
 
 ## Live Preview
 
-[Goals Tracker | MERN App](https://goals-tracker.up.railway.app/)
+[Goals Tracker | MERN App](https://goalstracker-dk.onrender.com/)
 
 ## How To Run?
 
